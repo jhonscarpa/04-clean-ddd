@@ -1,4 +1,5 @@
 import { Answer } from '../entities/answer'
+import { AnswersRepository } from '../repositories/answers-repository'
 
 interface IPropsAnswerQuestionUseCase {
   instructorId: string
@@ -7,8 +8,20 @@ interface IPropsAnswerQuestionUseCase {
 }
 
 export class AnswerQuestionUseCase {
-  execute({ instructorId, questionId, content }: IPropsAnswerQuestionUseCase) {
-    const answer = new Answer(content)
+  constructor(private answersRepository: AnswersRepository) {}
+
+  async execute({
+    instructorId,
+    questionId,
+    content,
+  }: IPropsAnswerQuestionUseCase) {
+    const answer = new Answer({
+      authorId: instructorId,
+      content,
+      questionId,
+    })
+
+    await this.answersRepository.create(answer)
     return answer
   }
 }
