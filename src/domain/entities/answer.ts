@@ -1,5 +1,6 @@
 import { Entity } from '../../core/entities/entity'
 import { UniqueEntityId } from '../../core/entities/unique-entity-id'
+import { Optional } from '../../core/types/optional'
 
 interface IPropsAnswer {
   authorId: UniqueEntityId
@@ -12,5 +13,19 @@ interface IPropsAnswer {
 export class Answer extends Entity<IPropsAnswer> {
   get content() {
     return this.props.content
+  }
+  static create(
+    props: Optional<IPropsAnswer, 'createdAt'>,
+    id?: UniqueEntityId,
+  ) {
+    const answer = new Answer(
+      {
+        ...props,
+        createdAt: new Date(),
+      },
+      id,
+    )
+
+    return answer
   }
 }
