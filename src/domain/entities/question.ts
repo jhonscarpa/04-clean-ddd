@@ -1,13 +1,15 @@
 import { Slug } from './value-objects/slug'
 import { Entity } from '../../core/entities/entity'
+import { UniqueEntityId } from '../../core/entities/unique-entity-id'
 
 interface IPropsQuestion {
+  authorId: UniqueEntityId
+  bestAnswerId?: UniqueEntityId
   title: string
   content: string
-  authorId: string
   slug: Slug
+  createdAt: Date
+  updatedAt?: Date
 }
 
-export class Question extends Entity<IPropsQuestion> {
- 
-}
+export class Question extends Entity<IPropsQuestion> {}
