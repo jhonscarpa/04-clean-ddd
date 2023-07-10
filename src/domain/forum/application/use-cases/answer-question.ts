@@ -7,6 +7,9 @@ interface IPropsAnswerQuestionUseCase {
   questionId: string
   content: string
 }
+interface IPropsAnswerQuestionUseCaseResponse {
+  answer: Answer
+}
 
 export class AnswerQuestionUseCase {
   constructor(private answersRepository: AnswersRepository) {}
@@ -15,7 +18,7 @@ export class AnswerQuestionUseCase {
     instructorId,
     questionId,
     content,
-  }: IPropsAnswerQuestionUseCase) {
+  }: IPropsAnswerQuestionUseCase): Promise<IPropsAnswerQuestionUseCaseResponse> {
     const answer = Answer.create({
       authorId: new UniqueEntityId(instructorId),
       questionId: new UniqueEntityId(questionId),
@@ -23,6 +26,6 @@ export class AnswerQuestionUseCase {
     })
 
     await this.answersRepository.create(answer)
-    return answer
+    return { answer }
   }
 }
