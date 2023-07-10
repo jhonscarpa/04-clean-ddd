@@ -18,21 +18,27 @@ export class Question extends Entity<IPropsQuestion> {
   get authorId() {
     return this.props.authorId
   }
+
   get bestAnswerId() {
     return this.props.bestAnswerId
   }
+
   get title() {
     return this.props.title
   }
+
   get content() {
     return this.props.content
   }
+
   get slug() {
     return this.props.slug
   }
+
   get createdAt() {
     return this.props.createdAt
   }
+
   get updatedAt() {
     return this.props.updatedAt
   }
@@ -40,6 +46,7 @@ export class Question extends Entity<IPropsQuestion> {
   get isNew(): boolean {
     return dayjs().diff(this.createdAt, 'days') <= 3
   }
+
   get excerpt() {
     return this.content.substring(0, 120).trimEnd().concat('...')
   }
@@ -53,10 +60,12 @@ export class Question extends Entity<IPropsQuestion> {
     this.props.slug = Slug.createFromText(title)
     this.touch()
   }
+
   set content(content: string) {
     this.props.content = content
     this.touch()
   }
+
   set bestAnswerId(bestAnswerId: UniqueEntityId | undefined) {
     this.props.bestAnswerId = bestAnswerId
     this.touch()
