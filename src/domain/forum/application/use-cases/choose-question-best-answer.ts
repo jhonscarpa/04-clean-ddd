@@ -1,7 +1,5 @@
 import { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { AnswersRepository } from '../repositories/answers-repository'
-import { Answer } from '../../enterprise/entities/answer'
 import { Question } from '../../enterprise/entities/question'
 
 interface IPropsChooseQuestionBestAnswerUseCase {
