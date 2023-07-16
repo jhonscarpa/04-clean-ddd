@@ -16,7 +16,7 @@ describe('Create Answer', () => {
       content: 'Conteúdo da resposta',
     })
 
-    expect(result.isRight).toBe(true)
+    expect(result.isRight()).toBe(true)
     expect(inMemoryAnswerRepository.items[0]).toEqual(result.value?.answer)
   })
 })
