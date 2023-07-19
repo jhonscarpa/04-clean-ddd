@@ -27,6 +27,7 @@ describe('Delete Question ', () => {
       new UniqueEntityId('question-1'),
     )
 
+    await inMemoryQuestionsRepository.create(newQuestion)
     inMemoryQuestionAttachmentsRepository.items.push(
       makeQuestionAttachment({
         questionId: newQuestion.id,
@@ -37,8 +38,6 @@ describe('Delete Question ', () => {
         attachmentId: new UniqueEntityId('2'),
       }),
     )
-
-    inMemoryQuestionsRepository.create(newQuestion)
 
     await sut.execute({
       questionId: 'question-1',
