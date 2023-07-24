@@ -1,9 +1,14 @@
+import { SendNotificationUseCase } from './../../../notification/application/use-case/send-notification'
+import { QuestionsRepository } from './../repositories/questions-repository'
 import { DomainEvents } from '@/core/events/domain-events'
 import { EventHandler } from '@/core/events/event-handler'
 import { AnswerCreatedEvent } from '../../enterprise/events/answer-created-event'
 
 export class OnAnswerCreated implements EventHandler {
-  constructor() {
+  constructor(
+    private questionsRepository: QuestionsRepository,
+    private sendNotificationUseCase: SendNotificationUseCase,
+  ) {
     this.setupSubscriptions()
   }
 
@@ -15,6 +20,18 @@ export class OnAnswerCreated implements EventHandler {
   }
 
   private async sendNewAnswerNotification({ answer }: AnswerCreatedEvent) {
-    console.log(answer)
+    const question = await this.questionsRepository.findById(
+      answer.questionId.toString(),
+    )
+
+    if (question) {
+      await this.sendNotificationUseCase.execute({
+        recipientId: question?.authorId.toString(),
+        title: `Nova resposta em ${question.title
+          .substring(0, 40)
+          .concat('...')}`,
+        content: answer.excerpt,
+      })
+    }
   }
 }
