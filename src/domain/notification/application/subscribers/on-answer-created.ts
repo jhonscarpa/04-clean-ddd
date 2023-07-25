@@ -1,8 +1,8 @@
 import { SendNotificationUseCase } from './../../../notification/application/use-case/send-notification'
-import { QuestionsRepository } from './../repositories/questions-repository'
 import { DomainEvents } from '@/core/events/domain-events'
 import { EventHandler } from '@/core/events/event-handler'
-import { AnswerCreatedEvent } from '../../enterprise/events/answer-created-event'
+import { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository'
+import { AnswerCreatedEvent } from '@/domain/forum/enterprise/events/answer-created-event'
 
 export class OnAnswerCreated implements EventHandler {
   constructor(
